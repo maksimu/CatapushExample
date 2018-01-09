@@ -1,0 +1,30 @@
+{
+  "mobileAppId":2,
+  "text":"lorem ipsum dolor",
+  "notificationText":"notification message",
+  "messageRef":"testreference",
+  "notifyCallback": { "method":"post", "url":"http://yoursite/notify-callback" },
+
+  "recipients":[
+    {
+      "identifier":"johndoe",
+      "recipientRef":"testreference-johndoe"
+    }
+  ],
+
+
+
+  "devicesData":{
+    "ios":{
+      "sound":false,
+      "badge":2,
+      "soundPath":"folder/sound.mp3",
+      "category":"test",
+      "customData":{
+        "exampleKey":"exampleValue"
+      }
+    },
+    "android":{ "title":"test" }
+
+  }
+}
