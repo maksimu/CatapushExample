@@ -24,7 +24,7 @@ public class Main {
 
         LetsCatchThatCatService letsCatchThatCatService = retrofit.create(LetsCatchThatCatService.class);
 
-        MobApp ma = Construct your mobile app;
+        MobApp ma = Construct your dto here;
 
         Call<CatapushMessageResponse> catapushMessageResponseCall = letsCatchThatCatService.sendPush(ma);
 
