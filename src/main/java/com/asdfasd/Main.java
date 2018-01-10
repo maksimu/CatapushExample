@@ -2,11 +2,14 @@ package com.asdfasd;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 import java.io.IOException;
@@ -20,13 +23,14 @@ public class Main {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.catapush.com/1/")
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         LetsCatchThatCatService letsCatchThatCatService = retrofit.create(LetsCatchThatCatService.class);
 
-        MobApp ma = Construct your dto here;
+        MobApp ma = new MobApp();
 
-        Call<CatapushMessageResponse> catapushMessageResponseCall = letsCatchThatCatService.sendPush(ma);
+//        Call<CatapushMessageResponse> catapushMessageResponseCall = letsCatchThatCatService.sendPush("Bearer XYZ", ma);
 
         Response<CatapushMessageResponse> responseResponse = catapushMessageResponseCall.execute();
 
@@ -36,10 +40,12 @@ public class Main {
 
 
     public interface LetsCatchThatCatService{
+        @Headers({
+                "accept: application/json",
+                "content-type: application/json"
+        })
         @POST("messages")
         Call<CatapushMessageResponse> sendPush(
-                @Header("accept") String accept, // application/json
-                @Header("content-type") String contentType, // application/json
                 @Header("authorization") String authorization, // "Bearer ACCESS_TOKEN"
                 @Body MobApp mobApp);
     }
@@ -48,6 +54,7 @@ public class Main {
 
     @Data
     @AllArgsConstructor
+    @NoArgsConstructor
     static class MobApp{
         private int mobileAppId;
         private String text;
